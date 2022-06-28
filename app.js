@@ -116,3 +116,27 @@ const showResult = (result) => {
 };
 
 console.log(sumUp(showResult, 8, 2, 5, 10, 67));
+
+//////
+function checkInput(cb, ...strings) {
+  let hasEmptyText = false;
+  for (const text of strings) {
+    if (!text) {
+      hasEmptyText = true;
+      break;
+    }
+  }
+  if (!hasEmptyText) {
+    cb();
+  }
+}
+
+checkInput(
+  () => {
+    console.log("All not empty!");
+  },
+  "Hello",
+  "hi",
+  "Shalom",
+  "selam"
+);
