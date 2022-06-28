@@ -101,24 +101,60 @@ startGameBtn.addEventListener("click", start);
 //// not related to the game
 // Call back function and function inside another function
 
-const sumUp = (resultHandler, ...numbers) => {
+const combine = (resultHandler, opration, ...numbers) => {
   const validatenumber = (number) => {
     return isNaN(number) ? 0 : number;
   };
   let sum = 0;
   for (const num of numbers) {
-    sum += validatenumber(num);
+    if (opration === "ADD") {
+      sum += validatenumber(num);
+    } else {
+      sum -= validatenumber(num);
+    }
   }
   resultHandler(sum);
 };
-const showResult = (result) => {
-  alert("the result after adding all numbers is: " + result);
+
+// const subtractUp = (resultHandler, ...numbers) => {
+//   const validatenumber = (number) => {
+//     return isNaN(number) ? 0 : number;
+//   };
+//   let sum = 0;
+//   for (const num of numbers) {
+//     sum -= validatenumber(num);
+//   }
+//   resultHandler(sum, "the result after subtracting all numbers is: ");
+// };
+const showResult = (messageText, result) => {
+  alert(messageText + " " + result);
 };
 
-console.log(sumUp(showResult, 8, 2, 5, 10, 67));
+console.log(
+  combine(
+    showResult.bind(this, "The result after adding all numbers is: "),
+    "ADD",
+    8,
+    2,
+    5,
+    10,
+    67
+  )
+);
+console.log(
+  combine(
+    showResult.bind(this, "The result after subtracting all numbers is: "),
+    "SUBTRACT",
+    8,
+    2,
+    5,
+    10,
+    67
+  )
+);
 
 //////
-function checkInput(cb, ...strings) {
+const checkInput = (cb, ...strings) => {
   let hasEmptyText = false;
   for (const text of strings) {
     if (!text) {
@@ -129,7 +165,7 @@ function checkInput(cb, ...strings) {
   if (!hasEmptyText) {
     cb();
   }
-}
+};
 
 checkInput(
   () => {
